@@ -40,7 +40,7 @@ program
           type: 'list',
           name: 'templateType',
           message: '请选择模板类型(ALL TS):',
-          choices: ['VUE3', 'REACT19', 'NEXT'],
+          choices: ['VUE3', 'NEXT'],
         },
         {
           type: 'input',
@@ -61,8 +61,7 @@ program
           // 根据模板类型选择对应的 Git 仓库 URL
           const templateRepoUrl = {
             VUE3: 'git@github.com:LeonCry/vue-template.git',
-            REACT19: 'https://github.com/LeonCry/react-template.git',
-            NEXT: 'https://github.com/LeonCry/next-template.git',
+            NEXT: 'git@github.com:LeonCry/vue-template.git',
           }[templateType]
           const git = simpleGit()
           try {
