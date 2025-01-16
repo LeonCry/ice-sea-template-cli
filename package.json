@@ -1,0 +1,25 @@
+{
+  "name": "ice-sea-template-cli",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "ice-sea-template-cli": "./cli.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "glob": "^11.0.1",
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@types/node": "^20.17.6",
+    "commander": "^13.0.0",
+    "inquirer": "^12.3.2",
+    "simple-git": "^3.27.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
