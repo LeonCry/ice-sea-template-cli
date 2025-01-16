@@ -14,12 +14,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/LeonCry/ice-sea-template-cli"
+    "url": "git+https://github.com/LeonCry/ice-sea-template-cli.git"
   },
   "type": "module",
-  "private": true,
   "bin": {
-    "ice-sea-cli": "./cli.js"
+    "ice-sea-cli": "cli.js"
   },
   "dependencies": {
     "glob": "^11.0.1",
