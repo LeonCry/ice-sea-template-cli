@@ -44,13 +44,19 @@ program
           choices: ['VUE3', 'NEXT'],
         },
         {
+          type: 'list',
+          name: 'isInstall',
+          message: '请选择是否帮助安装依赖:',
+          choices: ['是,请帮我安装依赖', '否,我自己安装依赖'],
+        },
+        {
           type: 'input',
           name: 'newGitFolder',
           message: '请将新仓库.git文件夹拖动到此处(可选):',
         },
       ])
       .then(async (answers) => {
-        const { projectNameEN, projectNameCN, templateType, newGitFolder } = answers
+        const { projectNameEN, projectNameCN, templateType, newGitFolder, isInstall } = answers
         if (!newGitFolder) {
           console.log('%c未选择新仓库.git', 'color: yellow')
         }
@@ -96,8 +102,10 @@ program
               const newGitFolderPath = path.join(projectPath, path.basename(newGitFolder))
               fs.renameSync(newGitFolder, newGitFolderPath)
             }
-            console.log('[7/7]正在安装依赖...')
-            execSync('npm install --legacy-peer-deps', { cwd: projectPath, stdio: 'inherit' })
+            if (isInstall === '是,请帮我安装依赖') {
+              console.log('[7/7]正在安装依赖...')
+              execSync('npm install --legacy-peer-deps', { cwd: projectPath, stdio: 'inherit' })
+            } else console.log('[7/7] 请手动安装依赖!')
             console.log('\n---------------------\n')
             if (newGitFolder) console.log(`%c${'项目创建完成! 使用 `npm run dev` 启动项目'}`, 'color: green; font-weight: bold;')
             else console.log(`%c${'项目创建完成! 请将项目.git文件夹复制到下方目录地址中,然后使用 `npm run dev` 启动项目'}`, 'color: green; font-weight: bold;')
