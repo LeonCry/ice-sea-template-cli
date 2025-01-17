@@ -105,12 +105,12 @@ program
             if (isInstall === '是,请帮我安装依赖') {
               console.log('[7/7]正在安装依赖...')
               execSync('npm install --legacy-peer-deps', { cwd: projectPath, stdio: 'inherit' })
-            } else console.log('[7/7] 请手动安装依赖!')
+            }
             console.log('\n---------------------\n')
-            if (newGitFolder) console.log(`%c${'项目创建完成! 使用 `npm run dev` 启动项目'}`, 'color: green; font-weight: bold;')
-            else console.log(`%c${'项目创建完成! 请将项目.git文件夹复制到下方目录地址中,然后使用 `npm run dev` 启动项目'}`, 'color: green; font-weight: bold;')
-            console.log('\n')
-            console.log(`%c${projectPath}`, 'color: blue; font-weight: bold;')
+            console.log(`%c${'项目创建完成!,接下来请:'}`, 'color: green; font-weight: bold;')
+            if (!newGitFolder) console.log(`%c- 请将项目.git文件夹复制到${projectPath}.`, 'color: blue; font-weight: bold;')
+            if (isInstall !== '是,请帮我安装依赖') console.log('%c- 请手动安装依赖.', 'color: blue; font-weight: bold;')
+            console.log('%c- 使用 `npm run dev` 启动项目.', 'color: blue; font-weight: bold;')
           } catch (error) {
             console.error('ERROR:', error)
           }
