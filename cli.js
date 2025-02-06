@@ -41,7 +41,7 @@ program
           type: 'list',
           name: 'templateType',
           message: '请选择模板类型(ALL TS):',
-          choices: ['VUE3', 'NEXT'],
+          choices: ['VUE3'],
         },
         {
           type: 'list',
@@ -57,31 +57,28 @@ program
       ])
       .then(async (answers) => {
         const { projectNameEN, projectNameCN, templateType, newGitFolder, isInstall } = answers
-        if (!newGitFolder) {
-          console.log('%c未选择新仓库.git', 'color: yellow')
-        }
         const projectPath = path.join(process.cwd(), projectNameEN)
         if (!fs.existsSync(projectPath)) {
           fs.mkdirSync(projectPath)
+          console.log('\n')
           console.log(`项目 ${projectNameEN}(${projectNameCN})目录已创建，使用模板TS + ${templateType}`)
           console.log('\n')
           // 根据模板类型选择对应的 Git 仓库 URL
           const templateRepoUrl = {
             VUE3: 'git@github.com:LeonCry/vue-template.git',
-            NEXT: 'git@github.com:LeonCry/vue-template.git',
           }[templateType]
           const git = simpleGit()
           try {
-            console.log(`[1/7] 正在创建${templateType}模板...`)
+            console.log(`[1/8] 正在创建${templateType}模板...`)
             await git.clone(templateRepoUrl, projectPath)
-            console.log('[2/7] 模板创建成功,正在修改配置...')
+            console.log('[2/8] 模板创建成功,正在修改配置...')
             await new Promise((resolve) => setTimeout(resolve, 500))
             const envLocalFilePath = path.join(projectPath, '.env.local')
             const textToAppend = `VITE_APP_ROUTER_PREFIX = '${projectNameEN}'\nVITE_APP_OUTPUT = './dist/${projectNameEN}'\nVITE_APP_TITLE_ZH='${projectNameCN}'\n`
             fs.writeFileSync(envLocalFilePath, `${textToAppend}`, 'utf8')
-            console.log('[3/7] update .env.local success.')
+            console.log('[3/8] update .env.local success.')
             await new Promise((resolve) => setTimeout(resolve, 300))
-            console.log('[4/7] update .env.dev|pre|prod success.')
+            console.log('[4/8] update .env.dev|pre|prod success.')
             await new Promise((resolve) => setTimeout(resolve, 300))
             const packagePath = path.join(projectPath, 'package.json')
             const fileContent = fs.readFileSync(packagePath, 'utf8')
@@ -90,22 +87,22 @@ program
             const newLine = `  "name": "${projectNameEN}",`
             lines.splice(1, 0, newLine)
             fs.writeFileSync(packagePath, lines.join('\n'), 'utf8')
-            console.log('[5/7] update package.json success.')
+            console.log('[5/8] update package.json success.')
             await new Promise((resolve) => setTimeout(resolve, 500))
-            console.log('[6/7] del unused files...')
+            console.log('[6/8] del unused files...')
             await new Promise((resolve) => setTimeout(resolve, 800))
             const gitFolderPath = path.join(projectPath, '.git')
             fs.rmSync(gitFolderPath, { recursive: true, force: true })
             if (newGitFolder) {
-              console.log('[6.5/7] move .git folder...')
+              console.log('[7/8] move .git folder...')
               await new Promise((resolve) => setTimeout(resolve, 500))
               const newGitFolderPath = path.join(projectPath, path.basename(newGitFolder))
               fs.renameSync(newGitFolder, newGitFolderPath)
-            }
+            } else console.log('[7/8] 未选择新仓库.git(跳过)')
             if (isInstall === '是,请帮我安装依赖') {
-              console.log('[7/7]正在安装依赖...')
+              console.log('[8/8]正在安装依赖...')
               execSync('npm install --legacy-peer-deps', { cwd: projectPath, stdio: 'inherit' })
-            }
+            } else console.log('[8/8] 未选择自动安装依赖(跳过)')
             console.log('\n---------------------\n')
             console.log(`%c${'项目创建完成!,接下来请:'}`, 'color: green; font-weight: bold;')
             if (!newGitFolder) console.log(`%c- 请将项目.git文件夹复制到${projectPath}.`, 'color: blue; font-weight: bold;')
