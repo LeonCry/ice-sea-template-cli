@@ -11,5 +11,5 @@ npm install -g ice-sea-template-cli@latest
 ## 使用
 
 ```bash
-ice-sea-cli
+vue-tem
 ```
