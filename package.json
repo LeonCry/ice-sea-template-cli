@@ -1,6 +1,6 @@
 {
   "name": "ice-sea-template-cli",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "author": "LeonCry",
   "license": "MIT",
   "description": "A building tool for the VUE REACT NEXT project template",
@@ -18,7 +18,7 @@
   },
   "type": "module",
   "bin": {
-    "ice-sea-cli": "cli.js"
+    "vue-tem": "cli.js"
   },
   "dependencies": {
     "glob": "^11.0.1",
