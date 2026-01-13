@@ -73,10 +73,10 @@ program
             await git.clone(templateRepoUrl, projectPath)
             console.log('[2/8] 模板创建成功,正在修改配置...')
             await new Promise((resolve) => setTimeout(resolve, 500))
-            const envLocalFilePath = path.join(projectPath, '.env.local')
+            const envLocalFilePath = path.join(projectPath, '.env')
             const textToAppend = `VITE_APP_ROUTER_PREFIX = '${projectNameEN}'\nVITE_APP_OUTPUT = './dist/${projectNameEN}'\nVITE_APP_TITLE_ZH='${projectNameCN}'\n`
             fs.writeFileSync(envLocalFilePath, `${textToAppend}`, 'utf8')
-            console.log('[3/8] update .env.local success.')
+            console.log('[3/8] update .env success.')
             await new Promise((resolve) => setTimeout(resolve, 300))
             console.log('[4/8] update .env.dev|pre|prod success.')
             await new Promise((resolve) => setTimeout(resolve, 300))
